@@ -29,13 +29,66 @@ namespace ConsoleApp1
                     break;
             }
         }
+        public static int[,] Generate2Massives()
+        {
+            int[,] arr = new int [2,10];
+            byte x0 = 0;
+            byte x1 = 0;
+            int raws = arr.GetUpperBound(0) + 1;
+            int columns = arr.Length/2;
+
+            Console.WriteLine("Введите 10 целых чисел...");
+            for (int i = 0; i < 10; i++)
+            {
+                int key = int.Parse(Console.ReadLine());
+
+                if (key % 2 == 0)
+                {
+                    arr[0, x0] = key;
+                    x0++;
+
+                }
+                else
+                {
+                    arr[1, x1] = key;
+                    x1++;
+                }
+            }
+            Console.WriteLine("-------------------------");
+            return arr;
+        }
         static void Main(string[] args)
         {
-            DriveInfo[] Drivers = DriveInfo.GetDrives();
-            foreach (DriveInfo Driver in Drivers)
+            
+            int[,] MyArray = Generate2Massives();
+            int a = 0;
+            int b = 0;
+            for (int i = 0; i < MyArray.GetUpperBound(0)+1; i++)
             {
-                Console.WriteLine($"Disk: {Driver.Name}. Available space: {Math.Round((Driver.TotalFreeSpace * 0.000000001),2)}Gb of {Math.Round((Driver.TotalSize * 0.000000001),2)}Gb");
+                for (int j = 0; j < MyArray.Length/(MyArray.GetUpperBound(0) + 1); j++)
+                {
+                    
+                    if (j != ((MyArray.Length / (MyArray.GetUpperBound(0) + 1))-1)) 
+                    {
+                        Console.Write($"{MyArray[i, j]}, ");
+                       
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{MyArray[i, j]}");
+                    }
+                    if (i == 0 && MyArray[i, j] != 0)
+                    {
+                        a++;
+                    }
+                    if (i == 1 && MyArray[i, j] != 0)
+                    {
+                        b++;
+                    }
+
+                }
             }
+            Console.WriteLine($"Четных: {a}, нечетных: {b}");
         }
     }
 }
